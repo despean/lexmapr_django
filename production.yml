@@ -63,7 +63,7 @@ services:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
     ports:
-      - "8000:8000"
+      - "80:80"
 
   redis:
     image: redis:5.0
