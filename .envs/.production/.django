@@ -1,0 +1,22 @@
+# General
+# ------------------------------------------------------------------------------
+# DJANGO_READ_DOT_ENV_FILE=True
+DJANGO_SETTINGS_MODULE=config.settings.production
+DJANGO_SECRET_KEY="NzEAafAjLMzrvA6C6i16Bv9f6NjXoO8vBF5tYowRtwNo8IOMGdcZoFFjTl9uO0pz"
+DJANGO_ALLOWED_HOSTS=["206.12.122.169"]
+
+# Gunicorn
+# ------------------------------------------------------------------------------
+WEB_CONCURRENCY=4
+
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_URL=redis://redis:6379/0
+
+# Celery
+# ------------------------------------------------------------------------------
+
+# Flower
+CELERY_FLOWER_USER=EBRfDUjAngXybLWtedrwlJkzEgToKcES
+CELERY_FLOWER_PASSWORD=d0wb2LAEB3Ru6h8HMkt03oFTdoLLAcgljqPYAxK2dzsuEMaLwVoONJEAksDAULWp
+

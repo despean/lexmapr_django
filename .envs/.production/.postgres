@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=lexmapr_django
+POSTGRES_USER=zNcMTyXwQSiDKxWncTXIkCRZvgjPFLGa
+POSTGRES_PASSWORD=VYogpwrGJmG7n9z8AWFiVrYSo7IHTGuqv15RALEPvqqkJBxYUIBaVQjFUBczGbHm
