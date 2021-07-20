@@ -6,18 +6,68 @@ DJANGO_SECRET_KEY="NzEAafAjLMzrvA6C6i16Bv9f6NjXoO8vBF5tYowRtwNo8IOMGdcZoFFjTl9uO
 DJANGO_ADMIN_URL="admin/"
 DJANGO_ALLOWED_HOSTS=["206.12.122.169"]
 
+# Security
+# ------------------------------------------------------------------------------
+# TIP: better off using DNS, however, redirect is OK too
+DJANGO_SECURE_SSL_REDIRECT=False
+
+# Email
+# ------------------------------------------------------------------------------
+DJANGO_SERVER_EMAIL=
+{% if cookiecutter.mail_service == 'Mailgun' %}
+MAILGUN_API_KEY=
+MAILGUN_DOMAIN=
+{% elif cookiecutter.mail_service == 'Mailjet' %}
+MAILJET_API_KEY=
+MAILJET_SECRET_KEY=
+{% elif cookiecutter.mail_service == 'Mandrill' %}
+MANDRILL_API_KEY=
+{% elif cookiecutter.mail_service == 'Postmark' %}
+POSTMARK_SERVER_TOKEN=
+{% elif cookiecutter.mail_service == 'Sendgrid' %}
+SENDGRID_API_KEY=
+SENDGRID_GENERATE_MESSAGE_ID=True
+SENDGRID_MERGE_FIELD_FORMAT=None
+{% elif cookiecutter.mail_service == 'SendinBlue' %}
+SENDINBLUE_API_KEY=
+{% elif cookiecutter.mail_service == 'SparkPost' %}
+SPARKPOST_API_KEY=
+{% endif %}
+{% if cookiecutter.cloud_provider == 'AWS' %}
+# AWS
+# ------------------------------------------------------------------------------
+DJANGO_AWS_ACCESS_KEY_ID=
+DJANGO_AWS_SECRET_ACCESS_KEY=
+DJANGO_AWS_STORAGE_BUCKET_NAME=
+{% elif cookiecutter.cloud_provider == 'GCP' %}
+# GCP
+# ------------------------------------------------------------------------------
+GOOGLE_APPLICATION_CREDENTIALS=
+DJANGO_GCP_STORAGE_BUCKET_NAME=
+{% endif %}
+# django-allauth
+# ------------------------------------------------------------------------------
+DJANGO_ACCOUNT_ALLOW_REGISTRATION=True
+
 # Gunicorn
 # ------------------------------------------------------------------------------
 WEB_CONCURRENCY=4
+{% if cookiecutter.use_sentry == 'y' %}
+# Sentry
+# ------------------------------------------------------------------------------
+SENTRY_DSN=
+{% endif %}
 
 # Redis
 # ------------------------------------------------------------------------------
 REDIS_URL=redis://redis:6379/0
-
+{% if cookiecutter.use_celery == 'y' %}
 # Celery
 # ------------------------------------------------------------------------------
 
 # Flower
-CELERY_FLOWER_USER=EBRfDUjAngXybLWtedrwlJkzEgToKcES
-CELERY_FLOWER_PASSWORD=d0wb2LAEB3Ru6h8HMkt03oFTdoLLAcgljqPYAxK2dzsuEMaLwVoONJEAksDAULWp
+CELERY_FLOWER_USER=EBRfDUjengXybLbtedrwlJkzEgToKcES
+CELERY_FLOWER_PASSWORD=d0wb2OAEB3Ru6h8HMkt03oFTdoLLAcgljqPYAxK2dzsuEMaLwV6ONJEAksDAULWp
+{% endif %}
+
 
