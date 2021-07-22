@@ -60,8 +60,4 @@ USER django
 RUN mkdir /app/lexmapr_django/media
 WORKDIR /app
 
-
-
-WORKDIR $APP_HOME
-
 ENTRYPOINT ["/entrypoint"]
