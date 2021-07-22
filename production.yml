@@ -39,31 +39,31 @@ services:
     ports:
       - "5432:5432"
 
-  traefik:
-    build:
-      context: .
-      dockerfile: ./compose/production/traefik/Dockerfile
-    image: lexmapr_django_production_traefik
-    depends_on:
-      - django
-    volumes:
-      - production_traefik:/etc/traefik/acme
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-
-#  nginx:
+#  traefik:
 #    build:
 #      context: .
-#      dockerfile: ./compose/production/nginx/Dockerfile
-#    image: lexmapr_django_production_nginx
+#      dockerfile: ./compose/production/traefik/Dockerfile
+#    image: lexmapr_django_production_traefik
 #    depends_on:
 #      - django
 #    volumes:
-#      - production_static_data:/app/lexmapr_django/static
-#      - production_media_data:/app/lexmapr_django/media
+#      - production_traefik:/etc/traefik/acme
 #    ports:
 #      - "0.0.0.0:80:80"
+#      - "0.0.0.0:443:443"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: lexmapr_django_production_nginx
+    depends_on:
+      - django
+    volumes:
+      - production_static_data:/app/lexmapr_django/static
+      - production_media_data:/app/lexmapr_django/media
+    ports:
+      - "0.0.0.0:80:80"
 
   redis:
     image: redis:5.0
