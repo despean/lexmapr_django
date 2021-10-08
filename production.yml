@@ -41,9 +41,9 @@ services:
     ports:
       - "5432:5432"
   nginx:
-    build:
-      context: .
-      dockerfile: ./compose/production/nginx/Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ./compose/production/nginx/Dockerfile
     image: nginx:alpine
     depends_on:
       - django
