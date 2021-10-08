@@ -31,10 +31,11 @@ services:
       context: .
       dockerfile: ./compose/production/postgres/Dockerfile
     image: lexmapr_django_production_postgres
-    ssl: off
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
+    command: >
+      -c ssl=on
     env_file:
       - ./.envs/.production/.postgres
     ports:
