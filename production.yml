@@ -59,8 +59,8 @@ services:
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
-      - ./compose/production/certbot/conf:/etc/letsencrypt
-      - ./compose/production/certbot/www:/var/www/certbot
+      - ./compose/production/certbot/conf/live/lexmapr.cidgoh.ca/privkey.pem:/var/lib/postgresql/server.key
+      - ./compose/production/certbot/conf/live/lexmapr.cidgoh.ca/fullchain.pem:/var/lib/postgresql/server.crt
     env_file:
       - ./.envs/.production/.postgres
     ports:
