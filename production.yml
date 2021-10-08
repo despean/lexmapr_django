@@ -53,7 +53,7 @@ services:
       - ./compose/production/nginx:/etc/nginx/conf.d
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    command: "chmod +x ./etc/nginx/conf.d/init-cert.sh && sudo ./etc/nginx/conf.d/init-cert.sh"
+    command: sh -c "chmod +x ./etc/nginx/conf.d/init-cert.sh && sudo ./etc/nginx/conf.d/init-cert.sh"
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
