@@ -6,8 +6,6 @@ volumes:
   production_traefik: {}
   production_static_data: {}
   production_media_data: {}
-  certbot_www: {}
-  certbot_conf: {}
 
 services:
   django: &django
@@ -50,9 +48,9 @@ services:
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
-      - certbot_conf:/etc/letsencrypt
-      - certbot_www:/var/www/certbot
-    command: "./init_cert.sh"
+      - /compose/production/certbot/conf:/etc/letsencrypt
+      - /compose/production/certbot/www:/var/www/certbot
+    command: ./init_cert.sh
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -61,8 +59,8 @@ services:
     depends_on:
       - nginx
     volumes:
-    - certbot_conf:/etc/letsencrypt
-    - certbot_www:/var/www/certbot
+      - /compose/production/certbot/conf:/etc/letsencrypt
+      - /compose/production/certbot/www:/var/www/certbot
 
   redis:
     image: redis:5.0
