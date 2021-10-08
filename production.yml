@@ -48,8 +48,8 @@ services:
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
-      - /compose/production/certbot/conf:/etc/letsencrypt
-      - /compose/production/certbot/www:/var/www/certbot
+      - ./compose/production/certbot/conf:/etc/letsencrypt
+      - ./compose/production/certbot/www:/var/www/certbot
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -58,8 +58,8 @@ services:
     depends_on:
       - nginx
     volumes:
-      - /compose/production/certbot/conf:/etc/letsencrypt
-      - /compose/production/certbot/www:/var/www/certbot
+      - ./compose/production/certbot/conf:/etc/letsencrypt
+      - ./compose/production/certbot/www:/var/www/certbot
 
   redis:
     image: redis:5.0
