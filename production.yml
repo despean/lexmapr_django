@@ -25,19 +25,6 @@ services:
     command: /start
     expose:
       - "5000"
-
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    image: lexmapr_django_production_postgres
-    volumes:
-      - production_postgres_data:/var/lib/postgresql/data
-      - production_postgres_data_backups:/backups
-    env_file:
-      - ./.envs/.production/.postgres
-    ports:
-      - "5432:5432"
   nginx:
     build:
       context: .
@@ -64,7 +51,18 @@ services:
     command: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   redis:
     image: redis:5.0
-
+  postgres:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: lexmapr_django_production_postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+      - production_postgres_data_backups:/backups
+    env_file:
+      - ./.envs/.production/.postgres
+    ports:
+      - "5432:5432"
   celeryworker:
     <<: *django
     image: lexmapr_django_production_celeryworker
