@@ -34,7 +34,7 @@ services:
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
-      - ./compose/production/certbot/conf:/etc/letsencrypt
+      - /lexmapr_cert/production/certbot/conf:/etc/letsencrypt
     env_file:
       - ./.envs/.production/.postgres
     ports:
@@ -49,8 +49,8 @@ services:
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
-      - ./compose/production/certbot/conf:/etc/letsencrypt
-      - ./compose/production/certbot/www:/var/www/certbot
+      - /lexmapr_cert/production/certbot/conf:/etc/letsencrypt
+      - /lexmapr_cert/production/certbot/www:/var/www/certbot
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -59,8 +59,8 @@ services:
     depends_on:
       - nginx
     volumes:
-      - ./compose/production/certbot/conf:/etc/letsencrypt
-      - ./compose/production/certbot/www:/var/www/certbot
+      - /lexmapr_cert/production/certbot/conf:/etc/letsencrypt
+      - /lexmapr_cert/production/certbot/www:/var/www/certbot
 
   redis:
     image: redis:5.0
