@@ -53,7 +53,7 @@ services:
       - ./compose/production/nginx:/etc/nginx/conf.d
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    command: ash -cx "curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh > init-letsencrypt.sh && sudo chmod +x init-letsencrypt.sh && sudo ./init-letsencrypt.sh"
+    command: sh -c "curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh > init-letsencrypt.sh && sudo chmod +x init-letsencrypt.sh && sudo ./init-letsencrypt.sh"
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
