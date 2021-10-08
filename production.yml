@@ -6,6 +6,8 @@ volumes:
   production_traefik: {}
   production_static_data: {}
   production_media_data: {}
+  certbot_www: {}
+  certbot_conf: {}
 
 services:
   django: &django
@@ -38,32 +40,30 @@ services:
       - ./.envs/.production/.postgres
     ports:
       - "5432:5432"
-
-#  traefik:
-#    build:
-#      context: .
-#      dockerfile: ./compose/production/traefik/Dockerfile
-#    image: lexmapr_django_production_traefik
-#    depends_on:
-#      - django
-#    volumes:
-#      - production_traefik:/etc/traefik/acme
-#    ports:
-#      - "0.0.0.0:80:80"
-#      - "0.0.0.0:443:443"
-
   nginx:
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
-    image: lexmapr_django_production_nginx
+    image: nginx:alpine
     depends_on:
       - django
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
+      - ./compose/production/nginx:/etc/nginx/conf.d
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    command: curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh > init-letsencrypt.sh && sudo chmod +x init-letsencrypt.sh && sudo ./init-letsencrypt.sh
     ports:
       - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+  certbot:
+    image: certbot/certbot
+    depends_on:
+      - nginx
+    volumes:
+    - certbot_conf:/etc/letsencrypt
+    - certbot_www:/var/www/certbot
 
   redis:
     image: redis:5.0

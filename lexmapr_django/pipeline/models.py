@@ -27,6 +27,10 @@ class PipelineJob(Model):
     def get_absolute_url(self):
         return reverse('pipeline:temp', kwargs={"job_id": self.id})
 
+    def get_api_absolute_url(self):
+        return reverse('pipeline:file_upload_res', kwargs={"job_id": self.id})
+
+
 
 @receiver(post_delete, sender=PipelineJob)
 def auto_delete_files(sender, instance, **kwargs):
