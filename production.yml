@@ -47,19 +47,18 @@ services:
     image: lexmapr_django_production_postgres
     depends_on:
       - django
+      - certbot
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    command: sh -c " sudo ./etc/nginx/init-cert.sh"
+    command: " sudo ./etc/nginx/init-cert.sh"
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
   certbot:
     image: certbot/certbot
-    depends_on:
-      - nginx
     volumes:
     - certbot_conf:/etc/letsencrypt
     - certbot_www:/var/www/certbot
