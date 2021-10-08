@@ -41,19 +41,18 @@ services:
     ports:
       - "5432:5432"
   nginx:
-#    build:
-#      context: .
-#      dockerfile: ./compose/production/nginx/Dockerfile
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: lexmapr_django_production_postgres
     depends_on:
       - django
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
-      - ./compose/production/nginx:/etc/nginx/conf.d
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    command: sh -c "chmod +x ./etc/nginx/conf.d/init-cert.sh && sudo ./etc/nginx/conf.d/init-cert.sh"
+    command: sh -c " sudo ./etc/nginx/init-cert.sh"
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
