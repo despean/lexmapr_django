@@ -50,7 +50,6 @@ services:
       - production_media_data:/app/lexmapr_django/media
       - /compose/production/certbot/conf:/etc/letsencrypt
       - /compose/production/certbot/www:/var/www/certbot
-    entrypoint: sh ./init_cert.sh
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
