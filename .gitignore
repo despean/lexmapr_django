@@ -8,7 +8,6 @@ __pycache__/
 *.so
 
 # Distribution / packaging
-compose/production/certbot
 .Python
 build/
 develop-eggs/
