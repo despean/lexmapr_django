@@ -25,32 +25,34 @@ services:
     command: /start
     expose:
       - "5000"
-  nginx:
-    build:
-      context: .
-      dockerfile: ./compose/production/nginx/Dockerfile
-    image: lexmapr_django_production_postgres
-    depends_on:
-      - django
-    volumes:
-      - production_static_data:/app/lexmapr_django/static
-      - production_media_data:/app/lexmapr_django/media
-      - ./compose/production/certbot/conf:/etc/letsencrypt
-      - ./compose/production/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-  certbot:
-    image: certbot/certbot
-    depends_on:
-      - nginx
-    volumes:
-      - ./compose/production/certbot/conf:/etc/letsencrypt
-      - ./compose/production/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+#  nginx:
+#    build:
+#      context: .
+#      dockerfile: ./compose/production/nginx/Dockerfile
+#    image: lexmapr_django_production_postgres
+#    depends_on:
+#      - django
+#    volumes:
+#      - production_static_data:/app/lexmapr_django/static
+#      - production_media_data:/app/lexmapr_django/media
+#      - ./compose/production/certbot/conf:/etc/letsencrypt
+#      - ./compose/production/certbot/www:/var/www/certbot
+#    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+#    ports:
+#      - "0.0.0.0:80:80"
+#      - "0.0.0.0:443:443"
+
+#  certbot:
+#    image: certbot/certbot
+#    depends_on:
+#      - nginx
+#    volumes:
+#      - ./compose/production/certbot/conf:/etc/letsencrypt
+#      - ./compose/production/certbot/www:/var/www/certbot
+#    command: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   redis:
     image: redis:5.0
+
   postgres:
     build:
       context: .
@@ -59,12 +61,11 @@ services:
     volumes:
       - production_postgres_data:/var/lib/postgresql/data
       - production_postgres_data_backups:/backups
-      - ./compose/production/certbot/postgres_ssl/server.crt:/var/lib/postgresql/server.crt
-      - ./compose/production/certbot/postgres_ssl/server.key:/var/lib/postgresql/server.key
     env_file:
       - ./.envs/.production/.postgres
     ports:
       - "5432:5432"
+
   celeryworker:
     <<: *django
     image: lexmapr_django_production_celeryworker
@@ -81,11 +82,3 @@ services:
     ports:
       - "5555:5555"
     command: /start-flower
-#  awscli:
-#    build:
-#      context: .
-#      dockerfile: ./compose/production/aws/Dockerfile
-#    env_file:
-#      - ./.envs/.production/.django
-#    volumes:
-#      - production_postgres_data_backups:/backups
