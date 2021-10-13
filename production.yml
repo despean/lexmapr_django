@@ -24,10 +24,7 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     ports:
-      - target: 5000
-      - published: 8080
-      - protocol: tcp
-      - mode: host
+      - "0.0.0.0:8080:5000"
 #  nginx:
 #    build:
 #      context: .
