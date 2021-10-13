@@ -61,3 +61,5 @@ RUN mkdir /app/lexmapr_django/media
 WORKDIR /app
 
 ENTRYPOINT ["/entrypoint"]
+
+EXPOSE 5000
