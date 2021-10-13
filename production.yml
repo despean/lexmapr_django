@@ -24,7 +24,7 @@ services:
       - ./.envs/.production/.postgres
     command: /start
     expose:
-      - "5000"
+      - "5000:5000"
 #  nginx:
 #    build:
 #      context: .
