@@ -70,11 +70,15 @@ services:
     <<: *django
     image: lexmapr_django_production_celeryworker
     command: /start-celeryworker
+    ports:
+    - "5001:5000"
 
   celerybeat:
     <<: *django
     image: lexmapr_django_production_celerybeat
     command: /start-celerybeat
+    ports:
+      - "5002:5000"
 
   flower:
     <<: *django
