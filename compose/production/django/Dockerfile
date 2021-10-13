@@ -62,4 +62,3 @@ WORKDIR /app
 
 ENTRYPOINT ["/entrypoint"]
 
-EXPOSE 5000
