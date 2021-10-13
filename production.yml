@@ -23,8 +23,8 @@ services:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
     command: /start
-    expose:
-      - "5000"
+    port:
+      - "5000:5000"
 #  nginx:
 #    build:
 #      context: .
