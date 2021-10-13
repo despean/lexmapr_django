@@ -25,9 +25,9 @@ services:
     command: /start
     ports:
       - target: 5000
-        published: 8080
-        protocol: tcp
-        mode: host
+      - published: 8080
+      - protocol: tcp
+      - mode: host
 #  nginx:
 #    build:
 #      context: .
