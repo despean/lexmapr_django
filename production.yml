@@ -25,18 +25,18 @@ services:
     command: /start
     ports:
       - "5000:5000"
-  traefik:
-    build:
-      context: .
-      dockerfile: ./compose/production/traefik/Dockerfile
-    image: lexmapr_django_production_traefik
-    depends_on:
-      - django
-    volumes:
-      - production_traefik:/etc/traefik/acme
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
+#  traefik:
+#    build:
+#      context: .
+#      dockerfile: ./compose/production/traefik/Dockerfile
+#    image: lexmapr_django_production_traefik
+#    depends_on:
+#      - django
+#    volumes:
+#      - production_traefik:/etc/traefik/acme
+#    ports:
+#      - "0.0.0.0:80:80"
+#      - "0.0.0.0:443:443"
 #  nginx:
 #    build:
 #      context: .
