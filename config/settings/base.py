@@ -3,6 +3,9 @@ Base settings to build other settings files upon.
 """
 
 import environ
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ROOT_DIR = (
     environ.Path(__file__) - 3
@@ -133,7 +136,7 @@ MIDDLEWARE = [
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = str(ROOT_DIR("static"))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/lexmapr/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
