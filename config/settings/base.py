@@ -139,7 +139,7 @@ STATIC_ROOT = str(ROOT_DIR("static"))
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/lexmapr/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR.path("static"))]
+STATICFILES_DIRS = [str(APPS_DIR.path("static")), "/app/lexmapr_django/static"]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
