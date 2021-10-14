@@ -29,7 +29,7 @@ OnHostRule = true
 [backends]
   [backends.django]
     [backends.django.servers.server1]
-      url = "http://0.0.0.0:5000/lexmapr"
+      url = "http://0.0.0.0:5000/"
 
 [frontends]
   [frontends.django]

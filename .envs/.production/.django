@@ -9,7 +9,7 @@ DJANGO_ADMIN_URL="admin/"
 # Security
 # ------------------------------------------------------------------------------
 # TIP: better off using DNS, however, redirect is OK too
-# DJANGO_SECURE_SSL_REDIRECT=
+DJANGO_SECURE_SSL_REDIRECT= False
 
 # Email
 # ------------------------------------------------------------------------------
