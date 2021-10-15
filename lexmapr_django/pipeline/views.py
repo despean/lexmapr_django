@@ -6,7 +6,8 @@ from django.views.decorators.http import require_POST
 from lexmapr_django.pipeline.forms import PipelineForm
 from lexmapr_django.pipeline.models import PipelineJob
 from lexmapr_django.pipeline.utils import (create_pipeline_job, results_to_matrix)
-
+import boto3
+from config.settings.base import env, APPS_DIR
 
 def render_pipeline_form(request):
     """Render pipeline input form.
@@ -76,8 +77,7 @@ def render_pipeline_results(request, job_id):
 
     results_matrix = results_to_matrix(job_id)
     if job.complete:
-        import boto3
-        from config.settings.base import env, APPS_DIR
+
         session = boto3.Session(
             aws_access_key_id=env("DJANGO_AWS_ACCESS_KEY_ID"),
             aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
@@ -85,7 +85,7 @@ def render_pipeline_results(request, job_id):
         s3_client = session.client('s3')
         filename = str(job_id)+".tsv"
         res = s3_client.upload_file(str(APPS_DIR)+'/media/output_files/'+filename, 'lexmaprmediafiles', filename)
-        url = boto3.client('s3').generate_presigned_url(
+        url = s3_client.generate_presigned_url(
             ClientMethod='get_object',
             Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
             ExpiresIn=86400)

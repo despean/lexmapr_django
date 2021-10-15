@@ -12,6 +12,8 @@ from lexmapr_django.pipeline.models import PipelineJob
 from lexmapr_django.pipeline.serializers import PipelineJobSerializer
 from lexmapr_django.pipeline.utils import create_pipeline_job
 import json
+import boto3
+from config.settings.base import env, APPS_DIR
 
 
 class FileUpload(APIView):
@@ -41,6 +43,18 @@ class FileUploadResult(APIView):
                                 expires__gte=datetime.now())
         res = {}
         if job is not None:
+            session = boto3.Session(
+                aws_access_key_id=env("DJANGO_AWS_ACCESS_KEY_ID"),
+                aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
+            )
+            s3_client = session.client('s3')
+            filename = str(job_id) + ".tsv"
+            res = s3_client.upload_file(str(APPS_DIR) + '/media/output_files/' + filename, 'lexmaprmediafiles',
+                                        filename)
+            url = s3_client.generate_presigned_url(
+                ClientMethod='get_object',
+                Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
+                ExpiresIn=86400)
             res['download_url'] = job.output_file.url
             res['complete'] = job.complete
             res['expires'] = job.expires
