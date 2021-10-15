@@ -93,5 +93,5 @@ def render_pipeline_results(request, job_id):
         except Exception as e:
             print(e)
     return render(request, "pages/pipeline_results.html", {
-        "job": job, "results_matrix": results_matrix, url: url
+        "job": job, "results_matrix": results_matrix, "url": url
     })
