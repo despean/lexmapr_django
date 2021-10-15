@@ -55,7 +55,7 @@ class FileUploadResult(APIView):
                 ClientMethod='get_object',
                 Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
                 ExpiresIn=86400)
-            res['download_url'] = job.output_file.url
+            res['download_url'] = url
             res['complete'] = job.complete
             res['expires'] = job.expires
             res['msg'] = 'Job completed.'
