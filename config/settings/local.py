@@ -69,3 +69,9 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 CELERY_TASK_EAGER_PROPAGATES = True
 # Your stuff...
 # ------------------------------------------------------------------------------
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = str(APPS_DIR("media"))
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/lexmapr/media/"
