@@ -83,7 +83,7 @@ def render_pipeline_results(request, job_id):
             aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
         )
         s3_client = session.client('s3')
-        s3_client.meta.client.upload_file(job.get_api_absolute_url(), 'lexmaprmediafiles', str(job_id)+".tsv")
+        res = s3_client.upload_file(job.get_api_absolute_url(), 'lexmaprmediafiles', str(job_id)+".tsv")
 
     return render(request, "pages/pipeline_results.html", {
         "job": job, "results_matrix": results_matrix
