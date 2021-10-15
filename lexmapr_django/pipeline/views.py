@@ -79,7 +79,7 @@ def render_pipeline_results(request, job_id):
         import boto3
         from config.settings.base import env, APPS_DIR
         session = boto3.Session(
-            aws_access_key_id= env("DJANGO_AWS_ACCESS_KEY_ID"),
+            aws_access_key_id=env("DJANGO_AWS_ACCESS_KEY_ID"),
             aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
         )
         s3_client = session.client('s3')
