@@ -84,7 +84,7 @@ def render_pipeline_results(request, job_id):
         )
         s3_client = session.client('s3')
         filename = str(job_id)+".tsv"
-        res = s3_client.upload_file(APPS_DIR+'/media/output_files/'+filename, 'lexmaprmediafiles', filename)
+        res = s3_client.upload_file(str(APPS_DIR)+'/media/output_files/'+filename, 'lexmaprmediafiles', filename)
 
     return render(request, "pages/pipeline_results.html", {
         "job": job, "results_matrix": results_matrix
