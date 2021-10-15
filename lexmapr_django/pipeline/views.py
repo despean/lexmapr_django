@@ -80,7 +80,8 @@ def render_pipeline_results(request, job_id):
         try:
             session = boto3.Session(
                 aws_access_key_id=env("DJANGO_AWS_ACCESS_KEY_ID"),
-                aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
+                aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY"),
+                region_name=env("DJANGO_AWS_S3_REGION_NAME")
             )
             s3_client = session.client('s3')
             filename = str(job_id)+".tsv"
