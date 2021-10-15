@@ -75,6 +75,13 @@ def render_pipeline_results(request, job_id):
                             expires__gte=datetime.now())
 
     results_matrix = results_to_matrix(job_id)
+    if job.complete:
+        import boto3
+        from config.settings.base import env
+        session = boto3.Session(
+            aws_access_key_id= env("DJANGO_AWS_ACCESS_KEY_ID"),
+            aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
+        )
 
     return render(request, "pages/pipeline_results.html", {
         "job": job, "results_matrix": results_matrix
