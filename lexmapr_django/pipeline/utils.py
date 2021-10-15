@@ -24,7 +24,7 @@ def create_pipeline_job(input_file):
 
     _, ext = splitext(input_file.name)
     job.input_file.save(str(job_id) + ext, input_file)
-    job.output_file.save(str(job_id) + ".tsv", ContentFile(""))
+    job.output_file.save(str(job_id) + ".tsv", ContentFile("".encode("utf-8")))
 
     # Wait for above transactions to complete before calling task
     transaction.on_commit(lambda: run_lexmapr.delay(job_id))
