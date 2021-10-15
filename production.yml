@@ -19,6 +19,7 @@ services:
     volumes:
       - production_static_data:/app/lexmapr_django/static
       - production_media_data:/app/lexmapr_django/media
+      - ~/media:/app/lexmapr_django/media
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
