@@ -89,6 +89,7 @@ def render_pipeline_results(request, job_id):
                 ClientMethod='get_object',
                 Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
                 ExpiresIn=86400)
+            print("url:", url)
         except Exception as e:
             print(e)
     return render(request, "pages/pipeline_results.html", {
