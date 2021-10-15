@@ -77,13 +77,14 @@ def render_pipeline_results(request, job_id):
     results_matrix = results_to_matrix(job_id)
     if job.complete:
         import boto3
-        from config.settings.base import env
+        from config.settings.base import env, APPS_DIR
         session = boto3.Session(
             aws_access_key_id= env("DJANGO_AWS_ACCESS_KEY_ID"),
             aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
         )
         s3_client = session.client('s3')
-        res = s3_client.upload_file(request.get_host()+""+job.output_file.url, 'lexmaprmediafiles', str(job_id)+".tsv")
+        filename = str(job_id)+".tsv"
+        res = s3_client.upload_file(APPS_DIR+'/media/output_files/'+filename, 'lexmaprmediafiles', filename)
 
     return render(request, "pages/pipeline_results.html", {
         "job": job, "results_matrix": results_matrix
