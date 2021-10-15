@@ -85,7 +85,10 @@ def render_pipeline_results(request, job_id):
         s3_client = session.client('s3')
         filename = str(job_id)+".tsv"
         res = s3_client.upload_file(str(APPS_DIR)+'/media/output_files/'+filename, 'lexmaprmediafiles', filename)
-
+        url = boto3.client('s3').generate_presigned_url(
+            ClientMethod='get_object',
+            Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
+            ExpiresIn=86400)
     return render(request, "pages/pipeline_results.html", {
-        "job": job, "results_matrix": results_matrix
+        "job": job, "results_matrix": results_matrix, url:url
     })

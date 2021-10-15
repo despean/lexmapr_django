@@ -41,7 +41,21 @@ class FileUploadResult(APIView):
                                 expires__gte=datetime.now())
         res = {}
         if job is not None:
-            res['download_url'] = job.output_file.url
+            import boto3
+            from config.settings.base import env, APPS_DIR
+            session = boto3.Session(
+                aws_access_key_id=env("DJANGO_AWS_ACCESS_KEY_ID"),
+                aws_secret_access_key=env("DJANGO_AWS_SECRET_ACCESS_KEY")
+            )
+            s3_client = session.client('s3')
+            filename = str(job_id) + ".tsv"
+            res = s3_client.upload_file(str(APPS_DIR) + '/media/output_files/' + filename, 'lexmaprmediafiles',
+                                        filename)
+            url = boto3.client('s3').generate_presigned_url(
+                ClientMethod='get_object',
+                Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
+                ExpiresIn=86400)
+            res['download_url'] = url
             res['complete'] = job.complete
             res['expires'] = job.expires
             res['msg'] = 'Job completed.'
