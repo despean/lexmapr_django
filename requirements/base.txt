@@ -22,4 +22,4 @@ coreapi==2.3.3  # https://github.com/core-api/python-client
 
 # LexMapr
 # ------------------------------------------------------------------------------
-git+https://github.com/Public-Health-Bioinformatics/LexMapr@v0.7.1
+git+https://github.com/cidgoh/LexMapr@v0.7.1
