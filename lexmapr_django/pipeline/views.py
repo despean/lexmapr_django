@@ -74,7 +74,7 @@ def render_pipeline_results(request, job_id):
     """
     job = get_object_or_404(PipelineJob, id=job_id,
                             expires__gte=datetime.now())
-
+    url = ""
     results_matrix = results_to_matrix(job_id)
     if job.complete:
         try:
