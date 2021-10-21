@@ -2,7 +2,7 @@
 # ------------------------------------------------------------------------------
 # DJANGO_READ_DOT_ENV_FILE=True
 DJANGO_SETTINGS_MODULE=config.settings.production
-DJANGO_SECRET_KEY='NzEAafAjLMzrvA6C6i16Bv9f6NjXoO8vBF5tYowRtwNo8IOMGdcZoFFjTl9uO0pz'
+DJANGO_SECRET_KEY=${{ secrets.APP_SECRET }}
 DJANGO_ADMIN_URL="admin/"
 # DJANGO_ALLOWED_HOSTS=['206.12.122.30']
 
@@ -36,8 +36,8 @@ SPARKPOST_API_KEY=
 {% if cookiecutter.cloud_provider == 'AWS' %}
 # AWS
 # ------------------------------------------------------------------------------
-DJANGO_AWS_ACCESS_KEY_ID=AKIAXUS67NNS7AGRDOLA
-DJANGO_AWS_SECRET_ACCESS_KEY=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
+DJANGO_AWS_ACCESS_KEY_ID=${{ secrets.AWS_KEY_ID }}
+DJANGO_AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_KEY_SECRET }}
 DJANGO_AWS_STORAGE_BUCKET_NAME=lexmaprmediafiles
 DJANGO_AWS_S3_REGION_NAME=ca-central-1
 {% elif cookiecutter.cloud_provider == 'GCP' %}
