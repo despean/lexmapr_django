@@ -5,6 +5,7 @@ from lexmapr.pipeline import run
 
 from config import celery_app
 from lexmapr_django.pipeline.models import PipelineJob
+from config.settings.base import CONFIG_DIR
 
 
 @celery_app.task()
@@ -23,7 +24,7 @@ def run_lexmapr(job_id):
 
     try:
         run(Namespace(input_file=job.input_file.path,
-                      config=None, full=None,
+                      config=CONFIG_DIR, full=None,
                       output=job.output_file.path, version=False, bucket=False,
                       no_cache=True, profile="ifsac"))
     except Exception as e:

@@ -9,6 +9,8 @@ ROOT_DIR = (
 )  # (lexmapr_django/config/settings/base.py - 3 = lexmapr_django/)
 APPS_DIR = ROOT_DIR.path("lexmapr_django")
 
+CONFIG_DIR = str(ROOT_DIR.path("config")) +"/config.json"
+
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
