@@ -53,7 +53,7 @@ RUN chmod +x /start-flower
 COPY . /app
 
 RUN chown -R django /app
-RUN chown -R django /usr
+RUN chown -R django /usr/local/lib/python3.6/site-packages/lexmapr
 
 USER django
 
