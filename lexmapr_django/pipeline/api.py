@@ -55,15 +55,16 @@ class FileUploadResult(APIView):
                 ClientMethod='get_object',
                 Params={'Bucket': 'lexmaprmediafiles', 'Key': filename},
                 ExpiresIn=86400)
-            res['download_url'] = url
-            res['complete'] = job.complete
-            res['expires'] = job.expires
-            res['msg'] = 'Job completed.'
+            if job.complete:
+                res['download_url'] = url
+                res['complete'] = job.complete
+                res['expires'] = job.expires
+                res['msg'] = 'Job completed.'
+
+            elif not job.complete:
+                res['complete'] = job.complete
+                res['expires'] = job.expires
+                res['msg'] = 'Job still running.'
             if job.err:
                 res['error'] = job.err_msg
-        elif not job.complete:
-            res['complete'] = job.complete
-            res['expires'] = job.expires
-            res['msg'] = 'Job still running.'
-
         return Response(res)
