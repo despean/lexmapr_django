@@ -49,7 +49,7 @@ class FileUploadResult(APIView):
             )
             s3_client = session.client('s3')
             filename = str(job_id) + ".tsv"
-            res = s3_client.upload_file(str(APPS_DIR) + '/media/output_files/' + filename, 'lexmaprmediafiles',
+            result = s3_client.upload_file(str(APPS_DIR) + '/media/output_files/' + filename, 'lexmaprmediafiles',
                                         filename)
             url = s3_client.generate_presigned_url(
                 ClientMethod='get_object',
